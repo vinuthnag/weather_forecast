@@ -1,0 +1,18 @@
+<h1>Weather Forecast</h1>
+
+<%= form_with url: root_path, method: :get, local: true do |form| %>
+  <%= form.label :address, "Enter Address:" %>
+  <%= form.text_field :address, value: params[:address] %>
+  <%= form.submit "Get Forecast" %>
+<% end %>
+
+<% if @error %>
+  <p style="color: red;"><%= @error %></p>
+<% elsif @forecast %>
+  <h2>Forecast for <%= params[:address] %> <% if @from_cache %> (from cache) <% end %></h2>
+  <p><strong>Temperature:</strong> <%= @forecast["main"]["temp"] %>°C</p>
+  <p><strong>High:</strong> <%= @forecast["main"]["temp_max"] %>°C</p>
+  <p><strong>Low:</strong> <%= @forecast["main"]["temp_min"] %>°C</p>
+  <p><strong>Weather:</strong> <%= @forecast["weather"][0]["description"] %></p>
+<% end %>
+
